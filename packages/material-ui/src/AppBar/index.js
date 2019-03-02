@@ -1,9 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { PaperBaseStyledComponent } from '../Paper';
 import theme from '../theme';
 const backgroundColorDefault = theme.palette.type === 'light' ? theme.palette.grey[100] : theme.palette.grey[900];
+
+const complexMixin = css`
+  top: 0;
+  left: auto;
+  right: 0;
+`;
+
 const AppBarBaseComponet = styled(PaperBaseStyledComponent)`
   display: flex;
   flex-direction: column;
@@ -12,7 +19,6 @@ const AppBarBaseComponet = styled(PaperBaseStyledComponent)`
   z-index: ${theme.zIndex.appBar};
   flex-shrink: 0;
   position: ${({ position }) => position};
-
   background-color: ${({ color }) =>
     color === 'default'
       ? backgroundColorDefault
@@ -30,16 +36,10 @@ const AppBarBaseComponet = styled(PaperBaseStyledComponent)`
       ? theme.palette.secondary.contrastText
       : null};
 
-  ${({ position }) =>
-    ['fixed', 'absolute', 'sticky'].includes(position)
-      ? `top: 0;
-    left: auto;
-    right: 0;`
-      : ''}
+  ${({ position }) => (['fixed', 'absolute', 'sticky'].includes(position) ? complexMixin : '')}
 `;
 const AppBar = React.forwardRef(function AppBar(props, ref) {
-  const Componet = AppBarBaseComponet.withComponent('header');
-  return <Componet square elevation={4} ref={ref} className={'asdasd'} {...props} />;
+  return <AppBarBaseComponet as="header" square elevation={4} ref={ref} className={'asdasd'} {...props} />;
 });
 
 AppBar.propTypes = {
