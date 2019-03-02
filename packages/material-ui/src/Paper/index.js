@@ -9,8 +9,8 @@ export const PaperBaseStyledComponent = styled(React.Fragment)`
 `;
 
 const Paper = React.forwardRef(function Paper(props, ref) {
-  const Com = PaperBaseStyledComponent.withComponent(props.component);
-  return <Com {...props} ref={ref} />;
+  const Component = PaperBaseStyledComponent.withComponent(props.component);
+  return <Component {...props} ref={ref} />;
 });
 
 Paper.propTypes = {

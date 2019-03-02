@@ -38,8 +38,8 @@ const AppBarBaseComponet = styled(PaperBaseStyledComponent)`
       : ''}
 `;
 const AppBar = React.forwardRef(function AppBar(props, ref) {
-  const Com = AppBarBaseComponet.withComponent('header');
-  return <Com square elevation={4} ref={ref} className={'asdasd'} {...props} />;
+  const Componet = AppBarBaseComponet.withComponent('header');
+  return <Componet square elevation={4} ref={ref} className={'asdasd'} {...props} />;
 });
 
 AppBar.propTypes = {
