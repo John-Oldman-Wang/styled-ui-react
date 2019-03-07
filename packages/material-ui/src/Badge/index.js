@@ -1,163 +1,99 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { componentPropType } from '@material-ui/utils';
-import withStyles from '../styles/withStyles';
-import { capitalize } from '../utils/helpers';
+import theme from '../theme';
+import styled, { css } from 'styled-components';
 
 const RADIUS = 10;
+const colorTypes = ['primary', 'secondary', 'error'];
+const colorStyles = colorTypes.reduce((acc, colorType) => {
+  acc[colorType] = css`
+    background-color: ${theme.palette[colorType].main};
+    color: ${theme.palette[colorType].contrastText};
+  `;
+  return acc;
+}, {});
 
-export const styles = (theme) => ({
-  /* Styles applied to the root element. */
-  root: {
-    position: 'relative',
-    display: 'inline-flex',
-    // For correct alignment with the text.
-    verticalAlign: 'middle'
-  },
-  /* Styles applied to the badge `span` element. */
-  badge: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    boxSizing: 'border-box',
-    fontFamily: theme.typography.fontFamily,
-    fontWeight: theme.typography.fontWeightMedium,
-    fontSize: theme.typography.pxToRem(12),
-    minWidth: RADIUS * 2,
-    padding: '0 4px',
-    height: RADIUS * 2,
-    borderRadius: RADIUS,
-    backgroundColor: theme.palette.color,
-    color: theme.palette.textColor,
-    zIndex: 1, // Render the badge on top of potential ripples.
-    transform: 'scale(1) translate(50%, -50%)',
-    transformOrigin: '100% 0%',
-    transition: theme.transitions.create('transform', {
-      easing: theme.transitions.easing.easeInOut,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  /* Styles applied to the root element if `color="primary"`. */
-  colorPrimary: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText
-  },
-  /* Styles applied to the root element if `color="secondary"`. */
-  colorSecondary: {
-    backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.secondary.contrastText
-  },
-  /* Styles applied to the root element if `color="error"`. */
-  colorError: {
-    backgroundColor: theme.palette.error.main,
-    color: theme.palette.error.contrastText
-  },
-  /* Styles applied to the badge `span` element if `invisible={true}`. */
-  invisible: {
-    transition: theme.transitions.create('transform', {
-      easing: theme.transitions.easing.easeInOut,
-      duration: theme.transitions.duration.leavingScreen
-    }),
-    transform: 'scale(0) translate(50%, -50%)',
-    transformOrigin: '100% 0%'
-  },
-  /* Styles applied to the root element if `variant="dot"`. */
-  dot: {
-    height: 6,
-    minWidth: 6,
-    padding: 0
+const invisibleStyle = css`
+  transition: ${theme.transitions.create('transform', {
+    easing: theme.transitions.easing.easeInOut,
+    duration: theme.transitions.duration.leavingScreen
+  })};
+  transform: scale(0) translate(50%, -50%);
+  transform-origin: 100% 0%;
+`;
+
+const dotStyle = css`
+  height: 6px;
+  min-width: 6px;
+  padding: 0;
+`;
+
+const BadgeBaseComponet = styled.span`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  box-sizing: border-box;
+  font-family: ${theme.typography.fontFamily};
+  font-weight: ${theme.typography.fontWeightMedium};
+  font-size: ${theme.typography.pxToRem(12)};
+  min-width: ${RADIUS * 2}px;
+  padding: 0 4px;
+  height: ${RADIUS * 2}px;
+  border-radius: ${RADIUS}px;
+  background-color: ${theme.palette.color};
+  color: ${theme.palette.textColor};
+  z-index: 1;
+  transform: scale(1) translate(50%, -50%);
+  transform-origin: 100% 0%;
+  transition: ${theme.transitions.create('transform', {
+    easing: theme.transitions.easing.easeInOut,
+    duration: theme.transitions.duration.enteringScreen
+  })};
+  ${({ color }) => colorStyles[color] || ''}
+  ${({ invisible, badgeContent, showZero }) => (invisible == null && Number(badgeContent) === 0 && !showZero ? invisibleStyle : '')}
+  ${({ variant }) => (variant === 'dot' ? dotStyle : '')}
+`;
+
+const WrapBadgeBaseComponet = styled(React.Fragment)`
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+`;
+
+class Badge extends React.PureComponent {
+  render() {
+    const { badgeContent, children, className, color, component, invisible, showZero, max, variant, ...other } = this.props;
+
+    let displayValue = '';
+    if (variant !== 'dot') {
+      displayValue = badgeContent > max ? `${max}+` : badgeContent;
+    }
+    return (
+      <WrapBadgeBaseComponet as={component} className={className} {...other}>
+        {children}
+        <BadgeBaseComponet invisible={invisible} showZero={showZero} color={color} variant={variant}>
+          {displayValue}
+        </BadgeBaseComponet>
+      </WrapBadgeBaseComponet>
+    );
   }
-});
-
-function Badge(props) {
-  const {
-    badgeContent,
-    children,
-    classes,
-    className,
-    color,
-    component: ComponentProp,
-    invisible: invisibleProp,
-    showZero,
-    max,
-    variant,
-    ...other
-  } = props;
-
-  let invisible = invisibleProp;
-
-  if (invisibleProp == null && Number(badgeContent) === 0 && !showZero) {
-    invisible = true;
-  }
-
-  const badgeClassName = classNames(classes.badge, {
-    [classes[`color${capitalize(color)}`]]: color !== 'default',
-    [classes.invisible]: invisible,
-    [classes.dot]: variant === 'dot'
-  });
-  let displayValue = '';
-
-  if (variant !== 'dot') {
-    displayValue = badgeContent > max ? `${max}+` : badgeContent;
-  }
-
-  return (
-    <ComponentProp className={classNames(classes.root, className)} {...other}>
-      {children}
-      <span className={badgeClassName}>{displayValue}</span>
-    </ComponentProp>
-  );
 }
 
 Badge.propTypes = {
-  /**
-   * The content rendered within the badge.
-   */
   badgeContent: PropTypes.node,
-  /**
-   * The badge will be added relative to this node.
-   */
   children: PropTypes.node.isRequired,
-  /**
-   * Override or extend the styles applied to the component.
-   * See [CSS API](#css-api) below for more details.
-   */
-  classes: PropTypes.object.isRequired,
-  /**
-   * @ignore
-   */
   className: PropTypes.string,
-  /**
-   * The color of the component. It supports those theme colors that make sense for this component.
-   */
   color: PropTypes.oneOf(['default', 'primary', 'secondary', 'error']),
-  /**
-   * The component used for the root node.
-   * Either a string to use a DOM element or a component.
-   */
-  component: componentPropType,
-  /**
-   * If `true`, the badge will be invisible.
-   */
+  component: PropTypes.node.isRequired,
   invisible: PropTypes.bool,
-  /**
-   * Max count to show.
-   */
   max: PropTypes.number,
-  /**
-   * Controls whether the badge is hidden when `badgeContent` is zero.
-   */
   showZero: PropTypes.bool,
-  /**
-   * The variant to use.
-   */
   variant: PropTypes.oneOf(['standard', 'dot'])
 };
 
@@ -169,4 +105,4 @@ Badge.defaultProps = {
   variant: 'standard'
 };
 
-export default withStyles(styles, { name: 'MuiBadge' })(Badge);
+export default Badge;
