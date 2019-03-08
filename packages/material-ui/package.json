@@ -1,0 +1,15 @@
+{
+  "name": "@react-componets/material-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "babel --config-file ../../babel.config.js ./src  --out-dir ./build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

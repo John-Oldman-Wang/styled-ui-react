@@ -10,6 +10,7 @@ import Paper from '../src/Paper/index';
 import AppBar from '../src/AppBar/index';
 import Avatar from '../src/Avatar/index';
 import Fade from '../src/Fade/index';
+import Badge from '../src/Badge/index';
 
 const root = document.getElementById('root');
 class Test extends React.Component {
@@ -44,6 +45,9 @@ class Test extends React.Component {
         <Paper ref={this.t} square elevation={2}>
           asdasd
         </Paper>
+        <Badge badgeContent={4} color="primary">
+          a
+        </Badge>
         <Avatar alt="Remy Sharp" src="/static/1.jpg" />
         <Fade
           onEnter={() => {}}
