@@ -1,87 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { componentPropType } from '@material-ui/utils';
-import warning from 'warning';
-import withStyles from '../styles/withStyles';
 
-export const styles = (theme) => ({
-  /* Styles applied to the root element. */
-  root: {
-    display: 'flex',
-    justifyContent: 'center',
-    height: 56,
-    backgroundColor: theme.palette.background.paper
-  }
-});
+import styled from 'styled-components';
+import theme from '../theme';
 
-function BottomNavigation(props) {
-  const { children: childrenProp, classes, className: classNameProp, component: Component, onChange, showLabels, value, ...other } = props;
+const BottomNavigationBaseComponent = styled(React.Fragment)`
+  display: flex;
+  justify-content: center;
+  height: 56px;
+  background-color: ${theme.palette.background.paper};
+`;
 
-  const className = classNames(classes.root, classNameProp);
+class BottomNavigation extends React.PureComponent {
+  render() {
+    const { component, children, onChange, showLabels, value, ...other } = this.props;
 
-  const children = React.Children.map(childrenProp, (child, childIndex) => {
-    if (!React.isValidElement(child)) {
-      return null;
-    }
+    const newChildren = React.Children.map(children, (child, childIndex) => {
+      if (!React.isValidElement(child)) {
+        return null;
+      }
 
-    warning(
-      child.type !== React.Fragment,
-      ["Material-UI: the BottomNavigation component doesn't accept a Fragment as a child.", 'Consider providing an array instead.'].join(
-        '\n'
-      )
-    );
-
-    const childValue = child.props.value === undefined ? childIndex : child.props.value;
-    return React.cloneElement(child, {
-      selected: childValue === value,
-      showLabel: child.props.showLabel !== undefined ? child.props.showLabel : showLabels,
-      value: childValue,
-      onChange
+      const childValue = child.props.value === undefined ? childIndex : child.props.value;
+      return React.cloneElement(child, {
+        selected: childValue === value,
+        showLabel: child.props.showLabel !== undefined ? child.props.showLabel : showLabels,
+        value: childValue,
+        onChange
+      });
     });
-  });
 
-  return (
-    <Component className={className} {...other}>
-      {children}
-    </Component>
-  );
+    return (
+      <BottomNavigationBaseComponent as={component} {...other}>
+        {newChildren}
+      </BottomNavigationBaseComponent>
+    );
+  }
 }
 
 BottomNavigation.propTypes = {
-  /**
-   * The content of the component.
-   */
   children: PropTypes.node.isRequired,
-  /**
-   * Override or extend the styles applied to the component.
-   * See [CSS API](#css-api) below for more details.
-   */
-  classes: PropTypes.object.isRequired,
-  /**
-   * @ignore
-   */
   className: PropTypes.string,
-  /**
-   * The component used for the root node.
-   * Either a string to use a DOM element or a component.
-   */
-  component: componentPropType,
-  /**
-   * Callback fired when the value changes.
-   *
-   * @param {object} event The event source of the callback
-   * @param {any} value We default to the index of the child
-   */
+  component: PropTypes.node.isRequired, // componentPropType,
   onChange: PropTypes.func,
-  /**
-   * If `true`, all `BottomNavigationAction`s will show their labels.
-   * By default, only the selected `BottomNavigationAction` will show its label.
-   */
   showLabels: PropTypes.bool,
-  /**
-   * The value of the currently selected `BottomNavigationAction`.
-   */
   value: PropTypes.any
 };
 
@@ -90,4 +51,4 @@ BottomNavigation.defaultProps = {
   showLabels: false
 };
 
-export default withStyles(styles, { name: 'MuiBottomNavigation' })(BottomNavigation);
+export default BottomNavigation;
