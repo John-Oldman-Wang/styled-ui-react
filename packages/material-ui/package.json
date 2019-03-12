@@ -1,15 +1,30 @@
 {
-  "name": "@react-componets/material-ui",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@styled-ui/react",
+  "version": "0.0.5",
+  "description": "react material ui component styled-components",
+  "main": "./lib/index.js",
+  "email": "wanglin.john@bytedance.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nokisnojok/-ui.git"
+  },
   "directories": {
+    "lib": "lib",
     "test": "test"
   },
   "scripts": {
-    "build": "babel --config-file ../../babel.config.js ./src  --out-dir ./build"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p ../../tsconfig.json"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "react",
+    "material",
+    "component"
+  ],
+  "bugs": {
+    "url": "https://github.com/nokisnojok/-ui/issues"
+  },
+  "homepage": "https://github.com/nokisnojok/-ui#readme",
+  "author": "wanglin",
   "license": "ISC"
 }
