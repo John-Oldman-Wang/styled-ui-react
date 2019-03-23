@@ -41,16 +41,6 @@ Yes, it's really all you need to get started as you can see in this live and
 This project is licensed under the terms of the
 [MIT license](/LICENSE).
 
-
-#### 效果
-
-- [x] 需求分析
-- [x] 系统设计
-- [x] 详细设计
-- [ ] 编码
-- [ ] 测试
-- [ ] 交付
-
 ## Component work progress
 
 - [x] AppBar
