@@ -6,3 +6,4 @@ lib
 .cache
 .DS_Store
 .vscode/
+test
