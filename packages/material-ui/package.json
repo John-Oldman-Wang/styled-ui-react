@@ -1,6 +1,6 @@
 {
   "name": "@styled-ui/react",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "react material ui component styled-components",
   "main": "./lib/index.js",
   "email": "wanglin.john@bytedance.com",
