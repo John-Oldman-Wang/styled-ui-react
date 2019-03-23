@@ -44,6 +44,7 @@ module.exports = {
   mode: 'development',
   devServer: {
     port: 3000,
+    host: '0.0.0.0',
     compress: true,
     contentBase: [path.resolve(cwdDir, 'dist'), path.resolve(cwdDir)],
     historyApiFallback: true
