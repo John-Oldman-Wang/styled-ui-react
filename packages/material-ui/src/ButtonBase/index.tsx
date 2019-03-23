@@ -44,7 +44,8 @@ interface ButtonBaseProps {
 }
 
 interface ButtonBaseProps {
-  TouchRippleProps: object;
+  TouchRippleProps?: object;
+  onClick?: (e: any) => void;
   onBlur?: (e: any) => void;
   onFocus?: (e: any) => void;
   onKeyDown?: (e: any) => void;
