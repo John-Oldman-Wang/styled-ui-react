@@ -6,6 +6,7 @@
   "scripts": {
     "test": "webpack-dev-server --config ./webpack.config.js",
     "build": "tsc",
+    "build:watch": "tsc --watch",
     "prettier": "pretty-quick --staged"
   },
   "repository": {
@@ -35,7 +36,9 @@
     "react-dom": "*",
     "styled-components": "*"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@types/react-dom": "^16.8.2"
+  },
   "devDependencies": {
     "@babel/core": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
@@ -49,6 +52,7 @@
     "pretty-quick": "^1.10.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
+    "react-transition-group": "^2.6.1",
     "styled-components": "^4.1.3",
     "typescript": "^3.3.3333",
     "webpack": "^4.29.6",
