@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npm run test&npm run build:watch",
     "test": "webpack-dev-server --config ./webpack.config.js",
     "build": "tsc",
     "build:watch": "tsc --watch",
