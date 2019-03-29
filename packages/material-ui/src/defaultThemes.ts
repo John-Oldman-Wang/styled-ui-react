@@ -429,6 +429,14 @@ interface Palette {
     hint: string;
     icon?: string;
   };
+  action: {
+    active: string;
+    hover: string;
+    hoverOpacity: number;
+    selected: string;
+    disabled: string;
+    disabledBackground: string;
+  };
   error: themePalette;
   background: {
     default: string;
