@@ -51,7 +51,7 @@ This project is licensed under the terms of the
 - [x] BottomNavigationAction
 - [x] Button
 - [x] ButtonBase
-- [ ] Card
+- [x] Card
 - [ ] CardActionArea
 - [ ] CardActions
 - [ ] CardContent

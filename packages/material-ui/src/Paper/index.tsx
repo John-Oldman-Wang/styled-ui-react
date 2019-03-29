@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import theme from '../defaultThemes';
 
 interface PaperBaseStyledComponentProps {
-  square: boolean;
+  square?: boolean;
   elevation: number;
   ref?: React.Ref<{}>;
 }
@@ -15,7 +15,7 @@ export const PaperBaseStyledComponent = styled(React.Fragment)<PaperBaseStyledCo
 `;
 
 interface PaperProps extends PaperBaseStyledComponentProps {
-  component: keyof JSX.IntrinsicElements | React.ComponentType<any>;
+  component?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
 }
 
 const Paper = React.forwardRef(function(props: PaperProps, ref) {
