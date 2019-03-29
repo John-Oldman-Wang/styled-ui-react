@@ -49,7 +49,7 @@ This project is licensed under the terms of the
 - [x] Badge
 - [x] BottomNavigation
 - [x] BottomNavigationAction
-- [ ] Button
+- [x] Button
 - [x] ButtonBase
 - [ ] Card
 - [ ] CardActionArea
