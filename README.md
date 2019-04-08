@@ -52,9 +52,9 @@ This project is licensed under the terms of the
 - [x] Button
 - [x] ButtonBase
 - [x] Card
-- [ ] CardActionArea
-- [ ] CardActions
-- [ ] CardContent
+- [x] CardActionArea
+- [x] CardActions
+- [x] CardContent
 - [ ] CardHeader
 - [ ] CardMedia
 - [ ] Checkbox
@@ -146,5 +146,5 @@ This project is licensed under the terms of the
 - [ ] TextField
 - [ ] Toolbar
 - [ ] Tooltip
-- [ ] Typography
+- [x] Typography
 - [ ] Zoom

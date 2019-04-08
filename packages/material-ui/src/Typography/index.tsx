@@ -230,7 +230,7 @@ interface TypographyProps {
   paragraph: boolean;
 }
 
-const Typography: React.StatelessComponent<TypographyProps> = function(props) {
+const Typography: React.StatelessComponent<TypographyProps> = function Typography(props) {
   const {
     align,
     color,
