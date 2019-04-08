@@ -12,7 +12,7 @@ yarn add @styled-ui/react
 ## Supporting Material-UI
 
 styled-ui is an MIT-licensed open source project. It's an independent project with ongoing development made possible thanks to the support of these awesome. If you'd like to join this project, please send email to:
-- [wanglin.john](wanglin.john@bytedance.com).
+- [wanglin.john](https://github.com/nokisnojok).
 
 
 ## Usage
