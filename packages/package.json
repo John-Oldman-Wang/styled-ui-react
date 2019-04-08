@@ -1,0 +1,26 @@
+{
+  "name": "@styled-ui/react",
+  "version": "0.0.11",
+  "description": "react material ui component styled-components",
+  "main": "./index.js",
+  "email": "wanglin.john@bytedance.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nokisnojok/-ui.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p ../../tsconfig.json"
+  },
+  "keywords": [
+    "react",
+    "material design",
+    "component"
+  ],
+  "bugs": {
+    "url": "https://github.com/nokisnojok/-ui/issues"
+  },
+  "homepage": "https://github.com/nokisnojok/-ui#readme",
+  "author": "wanglin",
+  "license": "ISC"
+}
