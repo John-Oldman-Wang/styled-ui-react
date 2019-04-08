@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface CardActionsBaseStyledComponent {
+interface CardActionsBaseStyledComponentProps {
   disableActionSpacing: boolean;
 }
 
-const CardActionsBaseStyledComponent = styled.div<CardActionsBaseStyledComponent>`
+const CardActionsBaseStyledComponent = styled.div<CardActionsBaseStyledComponentProps>`
   padding: ${({ disableActionSpacing }) => (disableActionSpacing ? '8px' : '8px 4px')};
   display: flex;
   align-items: center;
