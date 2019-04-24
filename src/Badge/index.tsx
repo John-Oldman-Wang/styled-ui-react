@@ -73,58 +73,57 @@ const BadgeBaseComponet = styled.span<BadgeBaseComponetProps>`
   ${({ variant }) => (variant === 'dot' ? dotStyle : '')}
 `;
 
-interface WrapBadgeBaseComponetProps {
-  className: string;
-}
-const WrapBadgeBaseComponet = styled(React.Fragment)<WrapBadgeBaseComponetProps>`
+const WrapBadgeBaseComponet = styled(React.Fragment)<{
+  ref?: React.Ref<{}>;
+}>`
   position: relative;
   display: inline-flex;
   vertical-align: middle;
 `;
 
-interface Badge {
-  className: string;
-  badgeContent: JSX.Element | number;
-  color: 'primary' | 'secondary' | 'error' | 'default';
-  displayValue: number;
-  invisible: boolean;
-  component: keyof JSX.IntrinsicElements | React.ComponentType<any>;
-  showZero: boolean;
-  max: number;
-  variant: string;
+interface BadgeProps {
+  badgeContent?: React.ReactNode;
+  color?: 'primary' | 'secondary' | 'error' | 'default';
+  invisible?: boolean;
+  children: React.ReactNode;
+  component?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
+  showZero?: boolean;
+  max?: number;
+  variant?: string;
 }
 
-class Badge extends React.PureComponent<Badge> {
-  static defaultProps = {
-    color: 'default',
-    component: 'span',
-    max: 99,
-    showZero: false,
-    variant: 'standard'
-  };
+const Badge: React.ComponentType<React.HTMLAttributes<HTMLSpanElement> & BadgeProps> = React.forwardRef(function(
+  {
+    badgeContent,
+    children,
+    color = 'default',
+    component = 'span',
+    invisible: invisibleProp,
+    showZero,
+    max = 99,
+    variant = 'standard',
+    ...other
+  }: BadgeProps,
+  ref
+) {
+  let invisible = false;
 
-  render() {
-    const { badgeContent, children, className, color, component, invisible: invisibleProp, showZero, max, variant, ...other } = this.props;
-
-    let invisible = false;
-
-    if (invisibleProp == null && Number(badgeContent) === 0 && !showZero) {
-      invisible = true;
-    }
-
-    let displayValue = '';
-    if (variant !== 'dot' && typeof badgeContent === 'number') {
-      displayValue = badgeContent > max ? `${max}+` : badgeContent + '';
-    }
-    return (
-      <WrapBadgeBaseComponet as={component} className={className} {...other}>
-        {children}
-        <BadgeBaseComponet invisible={invisible} color={color} variant={variant}>
-          {displayValue}
-        </BadgeBaseComponet>
-      </WrapBadgeBaseComponet>
-    );
+  if (invisibleProp == null && Number(badgeContent) === 0 && !showZero) {
+    invisible = true;
   }
-}
+
+  let displayValue = '';
+  if (variant !== 'dot') {
+    displayValue = !(max + 1 - Number(badgeContent)) ? `${max}+` : badgeContent + '';
+  }
+  return (
+    <WrapBadgeBaseComponet as={component} ref={ref} {...other}>
+      {children}
+      <BadgeBaseComponet invisible={invisible} color={color} variant={variant}>
+        {displayValue}
+      </BadgeBaseComponet>
+    </WrapBadgeBaseComponet>
+  );
+});
 
 export default Badge;

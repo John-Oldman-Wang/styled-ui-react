@@ -21,8 +21,8 @@ const BackdropBaseComponet = styled(Fade)<BackdropBaseComponetProps>`
 
 interface BackdropProps {
   open: boolean;
-  invisible: boolean;
-  transitionDuration:
+  invisible?: boolean;
+  transitionDuration?:
     | number
     | {
         enter: number;
@@ -30,18 +30,17 @@ interface BackdropProps {
       };
 }
 
-class Backdrop extends React.PureComponent<BackdropProps> {
-  static defaultProps = {
-    invisible: false
-  };
-  render() {
-    const { open, transitionDuration, ...other } = this.props;
-    return (
-      <BackdropBaseComponet in={open} inProp={open} timeout={transitionDuration} {...other}>
-        <div data-mui-test="Backdrop" aria-hidden="true" />
-      </BackdropBaseComponet>
-    );
-  }
-}
+const Backdrop: React.ComponentType<React.HTMLAttributes<HTMLDivElement> & BackdropProps> = function({
+  open,
+  transitionDuration,
+  invisible = false,
+  ...other
+}: BackdropProps) {
+  return (
+    <BackdropBaseComponet in={open} invisible={invisible} timeout={transitionDuration} {...other}>
+      <div data-mui-test="Backdrop" aria-hidden="true" />
+    </BackdropBaseComponet>
+  );
+};
 
 export default Backdrop;

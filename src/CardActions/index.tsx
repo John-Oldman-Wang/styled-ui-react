@@ -16,15 +16,17 @@ const CardActionDisableActions = styled(React.Fragment)`
   margin: 0px 4px;
 `;
 
-interface CardActionsProps {
-  disableActionSpacing: boolean;
-  children: React.ReactNode | React.ReactNodeArray;
+interface CardActionsAttr {
+  disableActionSpacing?: boolean;
+  children?: React.ReactNode | React.ReactNodeArray;
 }
+
+export type CardActionsProps = React.HTMLAttributes<HTMLDivElement> & CardActionsAttr;
 
 const CardActions: React.StatelessComponent<CardActionsProps> = function(props: CardActionsProps) {
   const { disableActionSpacing, children, ...other } = props;
   return (
-    <CardActionsBaseStyledComponent disableActionSpacing={disableActionSpacing} {...other}>
+    <CardActionsBaseStyledComponent disableActionSpacing={!!disableActionSpacing} {...other}>
       {disableActionSpacing
         ? children
         : React.Children.map(children, (child) => {

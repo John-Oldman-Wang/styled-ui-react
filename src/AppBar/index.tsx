@@ -44,19 +44,17 @@ const AppBarBaseComponet = styled(PaperBaseStyledComponent)<AppBarBaseComponetPr
   ${({ position }) => (['fixed', 'absolute', 'sticky'].includes(position) ? complexMixin : '')}
 `;
 
-interface AppBarProps {
-  color: 'inherit' | 'primary' | 'secondary' | 'default';
-  position: 'fixed' | 'absolute' | 'sticky' | 'static' | 'relative';
-  children?: JSX.Element;
-}
-
-const AppBar = React.forwardRef(function(props: AppBarProps, ref) {
-  return <AppBarBaseComponet as="header" square elevation={4} ref={ref} {...props} />;
-});
-
-AppBar.defaultProps = {
-  color: 'primary',
-  position: 'fixed'
+type AppBarProps = {
+  color?: 'inherit' | 'primary' | 'secondary' | 'default';
+  position?: 'fixed' | 'absolute' | 'sticky' | 'static' | 'relative';
+  children?: React.ReactNode;
 };
+
+const AppBar: React.ComponentType<React.HTMLAttributes<HTMLHeadElement> & AppBarProps> = React.forwardRef(function(
+  { color = 'primary', position = 'fixed', ...other }: React.HTMLAttributes<HTMLHeadElement> & AppBarProps,
+  ref
+) {
+  return <AppBarBaseComponet as="header" square elevation={4} ref={ref} color={color} position={position} {...other} />;
+});
 
 export default AppBar;

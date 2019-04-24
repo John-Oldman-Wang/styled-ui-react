@@ -39,31 +39,32 @@ const AvatarImg = styled.img`
 
 interface AvatarProps {
   alt?: string;
-  children: JSX.Element | React.ReactElement<{ className: string }>;
+  children?: React.ReactElement<{ className: string }>;
   childrenClassName?: string;
   className?: string;
   component?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
   imgProps?: object;
   sizes?: string;
-  size: number;
+  size?: number;
   src?: string;
   srcSet?: string;
 }
 
-const Avatar = React.forwardRef(function(props: AvatarProps, ref) {
+const Avatar: React.ComponentType<React.HTMLAttributes<HTMLDivElement> & AvatarProps> = React.forwardRef(function(props: AvatarProps, ref) {
   const {
     alt,
     children: childrenProp,
     childrenClassName: childrenClassNameProp,
     className: classNameProp,
-    component: Component,
+    component = 'div',
     imgProps,
     sizes,
+    size = 40,
     src,
     srcSet,
     ...other
   } = props;
-  let children: JSX.Element;
+  let children;
   const img = src || srcSet;
   if (img) {
     children = <AvatarImg alt={alt} src={src} srcSet={srcSet} sizes={sizes} {...imgProps} />;
@@ -75,15 +76,10 @@ const Avatar = React.forwardRef(function(props: AvatarProps, ref) {
     children = childrenProp;
   }
   return (
-    <AvatarBaseStyledComponent as={props.component} ref={ref} {...other}>
+    <AvatarBaseStyledComponent as={component} ref={ref} size={size} {...other}>
       {children}
     </AvatarBaseStyledComponent>
   );
 });
-
-Avatar.defaultProps = {
-  component: 'div',
-  size: 40
-};
 
 export default Avatar;

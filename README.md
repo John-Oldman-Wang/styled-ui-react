@@ -61,7 +61,7 @@ This project is licensed under the terms of the
 - [x] CardActions
 - [x] CardContent
 - [ ] CardHeader
-- [ ] CardMedia
+- [x] CardMedia
 - [ ] Checkbox
 - [ ] Chip
 - [ ] CircularProgress

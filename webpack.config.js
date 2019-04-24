@@ -2,7 +2,7 @@ const path = require('path');
 const cwdDir = process.cwd();
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
-  entry: path.resolve(cwdDir, './test/index.js'),
+  entry: path.resolve(cwdDir, './test/index.tsx'),
   output: {
     path: path.resolve(cwdDir, './dist'),
     publicPath: '/',
@@ -11,13 +11,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.tsx$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
           options: {
             babelrc: false,
-            presets: ['@babel/preset-react']
+            presets: ['@babel/preset-react', '@babel/preset-typescript']
           }
         }
       }

@@ -200,7 +200,25 @@ const TypographyBaseStyledComponent = styled(React.Fragment)<TypographyBaseStyle
   ${({ display }) => (display === 'initial' ? '' : `display: ${display}`)}
 `;
 
-const defaultVariantMapping = {
+type defaultVariantMapping = {
+  h1: 'h1';
+  h2: 'h2';
+  h3: 'h3';
+  h4: 'h4';
+  h5: 'h5';
+  h6: 'h6';
+  subtitle1: 'h6';
+  subtitle2: 'h6';
+  body1: 'p';
+  body2: 'p';
+  caption: 'span';
+  button: 'span';
+  overline: 'span';
+  srOnly: 'span';
+  inherit: 'span';
+};
+
+const defaultVariantMapping: defaultVariantMapping = {
   h1: 'h1',
   h2: 'h2',
   h3: 'h3',
@@ -219,38 +237,37 @@ const defaultVariantMapping = {
 };
 
 interface TypographyProps {
-  align: 'inherit' | 'left' | 'center' | 'right' | 'justify';
-  color: TypographyColor;
-  variant: TypographyVariant;
-  component: keyof JSX.IntrinsicElements | React.ComponentType<any>;
-  gutterBottom: boolean;
-  display: 'initial' | 'inline' | 'block';
-  internalDeprecatedVariant: boolean;
-  noWrap: boolean;
-  paragraph: boolean;
+  align?: 'inherit' | 'left' | 'center' | 'right' | 'justify';
+  color?: TypographyColor;
+  variant?: TypographyVariant;
+  component?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
+  gutterBottom?: boolean;
+  display?: 'initial' | 'inline' | 'block';
+  internalDeprecatedVariant?: boolean;
+  noWrap?: boolean;
+  paragraph?: boolean;
 }
 
-const Typography: React.StatelessComponent<TypographyProps> = function Typography(props) {
-  const {
-    align,
-    color,
-    component: componentProp,
-    gutterBottom,
-    display,
-    internalDeprecatedVariant,
-    noWrap,
-    paragraph,
-    variant,
-    ...other
-  } = props;
+const Typography: React.StatelessComponent<TypographyProps> = function Typography({
+  align = 'inherit',
+  color = 'initial',
+  component: componentProp,
+  gutterBottom,
+  display = 'initial',
+  internalDeprecatedVariant,
+  noWrap,
+  paragraph,
+  variant = 'body1',
+  ...other
+}) {
   const Component = componentProp || (paragraph ? 'p' : defaultVariantMapping[variant] || 'span');
 
   return (
     <TypographyBaseStyledComponent
       display={display}
-      noWrap={noWrap}
-      paragraph={paragraph}
-      gutterBottom={gutterBottom}
+      noWrap={!!noWrap}
+      paragraph={!!paragraph}
+      gutterBottom={!!gutterBottom}
       variant={variant}
       color={color}
       align={align}
@@ -258,16 +275,6 @@ const Typography: React.StatelessComponent<TypographyProps> = function Typograph
       {...other}
     />
   );
-};
-
-Typography.defaultProps = {
-  align: 'inherit',
-  color: 'initial',
-  display: 'initial',
-  gutterBottom: false,
-  noWrap: false,
-  paragraph: false,
-  variant: 'body1'
 };
 
 export default Typography;

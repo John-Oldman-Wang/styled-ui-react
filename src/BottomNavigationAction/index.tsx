@@ -63,10 +63,10 @@ const BottomNavigationActionLabelComponent = styled.span<BottomNavigationActionL
 interface BottomNavigationActionProps {
   className?: string;
   icon?: JSX.Element;
-  label: JSX.Element;
+  label?: React.ReactNode;
   value?: any;
-  selected: boolean;
-  showLabel: boolean;
+  selected?: boolean;
+  showLabel?: boolean;
   onChange?: (event: any, value: any) => void;
   onClick?: (event: any) => void;
 }
@@ -88,15 +88,15 @@ class BottomNavigationAction extends React.Component<BottomNavigationActionProps
     const { icon, label, onChange, onClick, selected, showLabel, ...other } = this.props;
     return (
       <BottomNavigationActionBaseComponent
-        selected={selected}
+        selected={!!selected}
         iconMobility={!showLabel && !selected}
-        onClick={(e) => {
+        onClick={(e: any) => {
           this.handleChange(e);
         }}
         {...other}>
         <BottomNavigationActionWrapComponent>
           {icon}
-          <BottomNavigationActionLabelComponent selected={selected} iconMobility={!showLabel && !selected}>
+          <BottomNavigationActionLabelComponent selected={!!selected} iconMobility={!showLabel && !selected}>
             {label}
           </BottomNavigationActionLabelComponent>
         </BottomNavigationActionWrapComponent>

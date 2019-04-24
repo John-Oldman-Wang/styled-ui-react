@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ButtonBase from '../ButtonBase';
+import ButtonBase, { ButtonBaseProps } from '../ButtonBase';
 import theme from '../defaultThemes';
 
 const CardActionAreaFocusHighlightClassName = btoa(String(Math.floor(Math.random() * 1000000)));
@@ -26,7 +26,7 @@ const CardActionAreaBaseStyledComponent = styled(ButtonBase)`
   }
 `;
 
-const CardActionArea: React.StatelessComponent<{}> = function(props) {
+const CardActionArea: React.StatelessComponent<ButtonBaseProps> = function(props) {
   const { children, ...other } = props;
   return (
     <CardActionAreaBaseStyledComponent {...other}>

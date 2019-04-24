@@ -32,18 +32,18 @@ const ButtonBaseStyledComponet = styled(React.Fragment)`
   }
 `;
 
-interface ButtonBaseProps {
+// interface ButtonBaseProps {
+// }
+
+interface ButtonBaseAttr {
   action?: (o: any) => void;
   onFocusVisible?: (o: any) => void;
-  component: keyof JSX.IntrinsicElements | React.ComponentType<any>;
+  component?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
   href?: string;
-  disableRipple: boolean;
+  disableRipple?: boolean;
   disabled?: boolean;
   focusRipple?: boolean;
   type?: string;
-}
-
-interface ButtonBaseProps {
   TouchRippleProps?: object;
   onClick?: (e: any) => void;
   onBlur?: (e: any) => void;
@@ -62,6 +62,7 @@ interface ButtonBaseState {
   focusVisible?: boolean;
 }
 
+export type ButtonBaseProps = React.AnchorHTMLAttributes<HTMLElement> & React.ButtonHTMLAttributes<HTMLElement> & ButtonBaseAttr;
 class ButtonBase extends React.Component<ButtonBaseProps, ButtonBaseState> {
   static defaultProps = {
     centerRipple: false,

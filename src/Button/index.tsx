@@ -178,20 +178,20 @@ const ButtonLabel = styled.span`
 `;
 
 interface ButtonProps {
-  color: 'default' | 'inherit' | 'primary' | 'secondary';
-  component: keyof JSX.IntrinsicElements | React.ComponentType<any>;
-  disabled: boolean;
-  disableFocusRipple: boolean;
-  disableRipple: boolean;
-  focusVisibleClassName: string;
-  fullWidth: boolean;
-  href: string;
-  size: 'small' | 'medium' | 'large';
-  type: string;
-  variant: 'text' | 'outlined' | 'contained' | 'fab' | 'extendedFab' | 'flat' | 'raised';
+  color?: 'default' | 'inherit' | 'primary' | 'secondary';
+  component?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
+  disabled?: boolean;
+  disableFocusRipple?: boolean;
+  disableRipple?: boolean;
+  focusVisibleClassName?: string;
+  fullWidth?: boolean;
+  href?: string;
+  size?: 'small' | 'medium' | 'large';
+  type?: string;
+  variant?: 'text' | 'outlined' | 'contained' | 'fab' | 'extendedFab' | 'flat' | 'raised';
 }
 
-class Button extends React.Component<ButtonProps> {
+class Button extends React.Component<React.AnchorHTMLAttributes<HTMLElement> & React.ButtonHTMLAttributes<HTMLElement> & ButtonProps> {
   static defaultProps = {
     color: 'default',
     component: 'button',
@@ -203,14 +203,23 @@ class Button extends React.Component<ButtonProps> {
     variant: 'text'
   };
   render() {
-    const { color, disabled, fullWidth, size, variant, children, ...other } = this.props;
+    const {
+      color = 'default',
+      disabled,
+      fullWidth,
+      size = 'medium',
+      variant = 'text',
+      children,
+      component = 'button',
+      ...other
+    } = this.props;
     return (
       <ButtomBaseComponent
         disableRipple
         color={color}
         variant={variant}
-        disabled={disabled}
-        fullWidth={fullWidth}
+        disabled={!!disabled}
+        fullWidth={!!fullWidth}
         size={size}
         selected
         {...other}>

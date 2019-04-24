@@ -18,7 +18,7 @@ type Child = JSX.Element & {
 
 interface BottomNavigationProps {
   children: Array<Child> | Child;
-  onChange: () => void;
+  onChange?: (event: React.ChangeEvent<{}>, value: any) => void;
   showLabels: boolean;
   component: keyof JSX.IntrinsicElements | React.ComponentType<any>;
   value: any;

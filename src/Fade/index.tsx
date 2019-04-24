@@ -1,5 +1,4 @@
-import React, { Children } from 'react';
-import { duration } from '../defaultThemes';
+import React from 'react';
 
 import theme from '../defaultThemes';
 import styled from 'styled-components';
@@ -24,24 +23,31 @@ const FadeBaseComponet = styled(React.Fragment)<FadeBaseComponetProps>`
   }};
 `;
 
-export interface FadeProps extends FadeBaseComponetProps {
+export interface FadeProps {
   in: boolean;
   onEnter?: any;
   onExit?: any;
   children: JSX.Element;
+  timeout?:
+    | number
+    | {
+        enter: number;
+        exit: number;
+      };
 }
 
-class Fade extends React.PureComponent<FadeProps> {
-  static defaultProps = {
-    timeout: {
-      enter: duration.enteringScreen,
-      exit: duration.leavingScreen
-    }
-  };
-  render() {
-    const { children, onEnter, onExit, in: inProp, ...childrenProps } = this.props;
-    return <FadeBaseComponet as={children.type} inProp={inProp} {...childrenProps} {...children.props} />;
-  }
-}
+const Fade: React.ComponentType<React.HTMLAttributes<HTMLDivElement> & FadeProps> = function({
+  children,
+  onEnter,
+  onExit,
+  in: inProp,
+  timeout = {
+    enter: 225,
+    exit: 195
+  },
+  ...childrenProps
+}: FadeProps) {
+  return <FadeBaseComponet as={children.type} inProp={inProp} timeout={timeout} {...childrenProps} {...children.props} />;
+};
 
 export default Fade;

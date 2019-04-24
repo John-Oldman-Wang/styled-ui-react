@@ -10,6 +10,7 @@ export { default as Card } from './Card/index';
 export { default as CardActionArea } from './CardActionArea/index';
 export { default as CardActions } from './CardActions/index';
 export { default as CardContent } from './CardContent/index';
+export { default as CardMedia } from './CardMedia/index';
 export { default as Fade } from './Fade/index';
 export { default as NoSsr } from './NoSsr/index';
 export { default as Paper } from './Paper/index';

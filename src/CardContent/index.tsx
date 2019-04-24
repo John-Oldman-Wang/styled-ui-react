@@ -8,9 +8,12 @@ const CardContentBaseStyledComponet = styled(React.Fragment)`
   }
 `;
 
-interface CardContentProps {
-  component: keyof JSX.IntrinsicElements | React.ComponentType<any>;
+interface CardContentAttr {
+  component?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
+  children?: React.ReactNode | React.ReactNodeArray;
 }
+
+export type CardContentProps = React.HTMLAttributes<HTMLDivElement> & CardContentAttr;
 
 const CardContent: React.StatelessComponent<CardContentProps> = function(props) {
   const { component, ...other } = props;
